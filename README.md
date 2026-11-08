@@ -1,5 +1,7 @@
 # nextjs-security-kit
 
+[![CI](https://github.com/marchikx/nextjs-security-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/marchikx/nextjs-security-kit/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 Small, dependency-free security helpers you can drop into Next.js route handlers, server actions, or any Node HTTP stack. Every module is pure TypeScript with no Next.js runtime required for unit tests.
 
 ## What it is for
