@@ -7,7 +7,7 @@ describe("csrf", () => {
 
   it("creates a verifiable token", () => {
     const token = createToken(secret, sessionId);
-    expect(token).toMatch(/^[0-9a-f]+\.[0-9a-f]+$/i);
+    expect(token).toMatch(/^[0-9a-f]+\.[0-9]+\.[0-9a-f]+$/i);
     expect(verifyToken(secret, sessionId, token)).toBe(true);
   });
 
@@ -21,6 +21,12 @@ describe("csrf", () => {
     expect(verifyToken(secret, sessionId, "")).toBe(false);
     expect(verifyToken(secret, sessionId, "notoken")).toBe(false);
     expect(verifyToken(secret, sessionId, "abc.nothex")).toBe(false);
+  });
+
+  it("rejects expired tokens", () => {
+    const token = createToken(secret, sessionId, 1_000, 1_000);
+    expect(verifyToken(secret, sessionId, token, 1_500)).toBe(true);
+    expect(verifyToken(secret, sessionId, token, 3_000)).toBe(false);
   });
 
   it("throws when creating without secret or session", () => {
